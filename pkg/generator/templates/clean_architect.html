@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Name}} — Modern {{.Category}} in {{.City}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: 'Outfit', sans-serif;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .slate-card {
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <header class="fixed top-0 left-0 right-0 z-50 py-4 px-6 slate-card border-b border-sky-500/20">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <span class="font-heading font-bold text-xl text-sky-400">{{.Name}}</span>
+      <a href="tel:{{.DisplayPhone}}" class="px-5 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm transition-colors">
+        Call {{.DisplayPhone}}
+      </a>
+    </div>
+  </header>
+
+  <section class="min-h-screen pt-36 pb-20 px-6 flex items-center">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 space-y-6 gsap-reveal">
+        <div class="text-sky-400 font-mono text-xs uppercase tracking-wider">Architectural Precision</div>
+        <h1 class="text-4xl md:text-6xl font-heading font-extrabold text-slate-100">
+          Structured {{.Category}} Solutions at {{.Name}}
+        </h1>
+        <p class="text-slate-400 text-lg">
+          Serving {{.FormattedAddress}} with modern efficiency. Call {{.DisplayPhone}}.
+        </p>
+        <div>
+          <a href="tel:{{.DisplayPhone}}" class="px-7 py-3.5 rounded-lg bg-sky-500 text-slate-950 font-bold hover:bg-sky-400 transition-colors inline-block">
+            Schedule Now
+          </a>
+        </div>
+      </div>
+      <div class="lg:col-span-5 gsap-reveal">
+        <div class="slate-card p-8 rounded-xl space-y-4">
+          <div class="text-sky-400 text-xs font-mono">BUSINESS METRICS</div>
+          <div class="text-xl font-bold text-slate-100">{{.Name}}</div>
+          <div class="text-slate-400 text-sm">{{.FormattedAddress}}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const lenis = new Lenis({ autoRaf: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+
+    gsap.utils.toArray('.gsap-reveal').forEach((el) => {
+      gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+  </script>
+</body>
+</html>

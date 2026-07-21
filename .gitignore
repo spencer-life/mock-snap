@@ -1,0 +1,22 @@
+# Binaries
+mock-snap
+*.exe
+*.exe.test
+*.out
+*.app
+
+# Generated previews and preview folders
+previews/
+cars_previews/
+hair_previews/
+
+# OS and IDE files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.tmp
+
+# Secrets
+.env
+.env.*

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Name}} — Editorial {{.Category}} in {{.City}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <style>
+    body {
+      background-color: #181512;
+      color: #e2d4c0;
+      font-family: 'Instrument Sans', sans-serif;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Plus Jakarta Sans', serif;
+    }
+    .warm-card {
+      background: #241e19;
+      border: 1px solid rgba(226, 212, 192, 0.1);
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <header class="fixed top-0 left-0 right-0 z-50 py-5 px-8 warm-card border-b border-amber-900/20">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <span class="font-heading font-bold text-xl text-amber-100 tracking-tight">{{.Name}}</span>
+      <a href="tel:{{.DisplayPhone}}" class="px-6 py-2.5 rounded-full bg-amber-600 hover:bg-amber-500 text-stone-950 font-medium text-sm transition-all">
+        Call {{.DisplayPhone}}
+      </a>
+    </div>
+  </header>
+
+  <section class="min-h-screen pt-40 pb-20 px-8 flex items-center">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 space-y-6 gsap-reveal">
+        <div class="text-amber-500 font-mono text-xs uppercase tracking-widest">Bespoke {{.Category}} Services</div>
+        <h1 class="text-5xl md:text-7xl font-heading font-normal text-amber-50 leading-tight">
+          Craftsmanship & Distinction at <span class="italic text-amber-400">{{.Name}}</span>
+        </h1>
+        <p class="text-stone-400 text-lg max-w-xl">
+          Dedicated local care in {{.City}}. Contact {{.DisplayPhone}} for consultations.
+        </p>
+        <div class="pt-4">
+          <a href="tel:{{.DisplayPhone}}" class="px-8 py-4 rounded-full bg-amber-500 text-stone-950 font-heading font-semibold text-base hover:bg-amber-400 transition-colors">
+            Book Service Appointment
+          </a>
+        </div>
+      </div>
+      <div class="lg:col-span-5 gsap-reveal">
+        <div class="warm-card p-8 rounded-2xl space-y-4">
+          <div class="text-xs uppercase text-amber-500 font-mono">Location & Details</div>
+          <div class="text-xl font-heading text-amber-100">{{.FormattedAddress}}</div>
+          <div class="text-stone-400 text-sm">Direct Phone: <span class="text-amber-400 font-mono">{{.DisplayPhone}}</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const lenis = new Lenis({ autoRaf: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+
+    gsap.utils.toArray('.gsap-reveal').forEach((el) => {
+      gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+  </script>
+</body>
+</html>
